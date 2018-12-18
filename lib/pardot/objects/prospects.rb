@@ -19,7 +19,7 @@ module Pardot
         end
         
         def assign_by_email email, params
-          post "/do/assign/email/#{email}", params
+          post "/do/assign/email/#{CGI.escape(email)}", params
         end
         
         def assign_by_id id, params
@@ -31,7 +31,7 @@ module Pardot
         end
         
         def create email, params = {}
-          post "/do/create/email/#{email}", params
+          post "/do/create/email/#{CGI.escape(email)}", params
         end
         
         def delete_by_id id, params = {}
@@ -43,7 +43,7 @@ module Pardot
         end
         
         def read_by_email email, params = {}
-          post "/do/read/email/#{email}", params
+          post "/do/read/email/#{CGI.escape(email)}", params
         end
         
         def read_by_id id, params = {}
@@ -55,7 +55,7 @@ module Pardot
         end
         
         def unassign_by_email email, params = {}
-          post "/do/unassign/email/#{email}", params
+          post "/do/unassign/email/#{CGI.escape(email)}", params
         end
         
         def unassign_by_id id, params = {}
@@ -67,7 +67,7 @@ module Pardot
         end
         
         def update_by_email email, params = {}
-          post "/do/update/email/#{email}", params
+          post "/do/update/email/#{CGI.escape(email)}", params
         end
         
         def update_by_id id, params = {}
@@ -79,7 +79,7 @@ module Pardot
         end
         
         def upsert_by_email email, params = {}
-          post "/do/upsert/email/#{email}", params
+          post "/do/upsert/email/#{CGI.escape(email)}", params
         end
         
         def upsert_by_id id, params = {}
