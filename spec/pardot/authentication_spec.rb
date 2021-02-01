@@ -11,31 +11,38 @@ describe Pardot::Authentication do
     before do
       @client = create_client
       
-      fake_post "/api/login/version/3?email=user%40test.com&password=foo&user_key=bar",
+      fake_post "/api/login/version/3",
                 %(<?xml version="1.0" encoding="UTF-8"?>\n<rsp stat="ok" version="1.0">\n   <api_key>my_api_key</api_key>\n</rsp>\n)
     end
     
     def authenticate
       @client.authenticate
     end
+
+    def verifyBody
+      expect(FakeWeb.last_request.body).to eq('email=user%40test.com&password=foo&user_key=bar')
+    end
     
     it "should return the api key" do
-      authenticate.should == "my_api_key"
+      expect(authenticate).to eq("my_api_key")
     end
     
     it "should set the api key" do
       authenticate
-      @client.api_key.should == "my_api_key"
+      expect(@client.api_key).to eq("my_api_key")
+      verifyBody
     end
     
     it "should make authenticated? true" do
       authenticate
-      @client.authenticated?.should == true
+      expect(@client.authenticated?).to eq(true)
+      verifyBody
     end
 
     it "should use version 3" do
       authenticate
-      @client.version.to_i.should == 3
+      expect(@client.version.to_i).to eq(3)
+      verifyBody
     end
     
   end
@@ -45,31 +52,38 @@ describe Pardot::Authentication do
     before do
       @client = create_client
       
-      fake_post "/api/login/version/3?email=user%40test.com&password=foo&user_key=bar",
+      fake_post "/api/login/version/3",
                 %(<?xml version="1.0" encoding="UTF-8"?>\n<rsp stat="ok" version="1.0">\n   <api_key>my_api_key</api_key>\n<version>4</version>\n</rsp>\n)
     end
     
     def authenticate
       @client.authenticate
     end
+
+    def verifyBody
+      expect(FakeWeb.last_request.body).to eq('email=user%40test.com&password=foo&user_key=bar')
+    end
     
     it "should return the api key" do
-      authenticate.should == "my_api_key"
+      expect(authenticate).to eq("my_api_key")
     end
     
     it "should set the api key" do
       authenticate
-      @client.api_key.should == "my_api_key"
+      expect(@client.api_key).to eq("my_api_key")
+      verifyBody
     end
     
     it "should make authenticated? true" do
       authenticate
-      @client.authenticated?.should == true
+      expect(@client.authenticated?).to eq(true)
+      verifyBody
     end
 
     it "should use version 4" do
       authenticate
-      @client.version.to_i.should == 4
+      expect(@client.version.to_i).to eq(4)
+      verifyBody
     end
     
   end
