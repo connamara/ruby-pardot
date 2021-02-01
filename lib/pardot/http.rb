@@ -47,7 +47,7 @@ module Pardot
     def create_auth_header object
       return if object == "login"
 
-      if @acces_token.present?
+      if @access_token.present?
         { :Authorization => "Bearer #{@access_token}", "Pardot-Business-Unit-Id" => @pardot_business_unit_id }
       else
         { :Authorization => "Pardot api_key=#{@api_key}, user_key=#{@user_key}" }
